@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  items: [
-    { name: 'популярности', type: 'popularity' },
-    { name: 'цене', type: 'price' },
-    { name: 'алфавиту', type: 'alphabet' },
-  ],
   category: 0,
   sortBy: 'popularity',
 }
@@ -23,5 +18,5 @@ const FilterSlice = createSlice({
   },
 })
 
-export const { setSortBy } = FilterSlice.actions
+export const { setSortBy, setCategory } = FilterSlice.actions
 export default FilterSlice.reducer
