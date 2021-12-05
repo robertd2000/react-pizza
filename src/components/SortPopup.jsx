@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setSortBy } from '../redux/reducers/filter'
 
-const SortPopup = React.memo(({ items, sortBy }) => {
-  const dispatch = useDispatch()
-
+const SortPopup = React.memo(({ items, sortBy, onClickSortType }) => {
   const [showPopup, setShowPopup] = useState(false)
 
   const sortRef = useRef()
@@ -14,9 +10,8 @@ const SortPopup = React.memo(({ items, sortBy }) => {
     document.body.addEventListener('click', handleOutsideClick)
   })
 
-  const onSelectItem = (type) => {
-    // setActiveItem(index)
-    dispatch(setSortBy(type))
+  const onSelectItem = (type, order) => {
+    onClickSortType({ type, order })
     setShowPopup(false)
   }
   const toggleVisiblePopup = () => {
@@ -52,7 +47,7 @@ const SortPopup = React.memo(({ items, sortBy }) => {
             {items.length &&
               items.map((item, i) => (
                 <li
-                  onClick={() => onSelectItem(item.type)}
+                  onClick={() => onSelectItem(item.type, item.order)}
                   className={item.type === sortBy ? 'active' : ''}
                   key={`${item.type}_${i}`}
                 >
