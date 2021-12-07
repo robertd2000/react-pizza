@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import { Button } from '.'
 
 const PizzaItem = ({
   name,
@@ -10,6 +11,9 @@ const PizzaItem = ({
   sizes,
   types,
   category,
+  onClickAddPizza,
+  addedCount,
+  id,
 }) => {
   const pizzaType = ['тонкое', 'традиционное']
   const availableSizes = [26, 30, 40]
@@ -22,6 +26,17 @@ const PizzaItem = ({
 
   const onSelectSize = (index) => {
     setActiveSize(index)
+  }
+
+  const onAddPizza = () => {
+    onClickAddPizza({
+      id,
+      name,
+      imageUrl,
+      price,
+      size: availableSizes[activeSize],
+      type: pizzaType[activeType],
+    })
   }
   return (
     <div className="pizza-block">
@@ -59,7 +74,7 @@ const PizzaItem = ({
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <Button onClick={onAddPizza} className="button--add" outline>
           <svg
             width="12"
             height="12"
@@ -73,8 +88,8 @@ const PizzaItem = ({
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          {addedCount && <i>{addedCount}</i>}
+        </Button>
       </div>
     </div>
   )
